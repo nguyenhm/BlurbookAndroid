@@ -1,4 +1,4 @@
-/* JSON API for android application */
+/* JSON API for android application ........*/
 package com.blurbook.blurbook;
 
 import java.io.IOException;
