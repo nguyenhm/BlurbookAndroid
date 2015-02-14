@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">blurbook</string>
+    <string name="title_activity_main">Blurbook</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_user">User</string>
+    <string name="action_search">Search</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="user_name">User Name</string>
+    <string name="user_email">Email</string>
+    <string name="drawer_row_text">Drawer Item Row</string>
+    <string name="login_or_sign_up">Login or Sign Up</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="create_user_account">Create Account</string>
+
+</resources>
