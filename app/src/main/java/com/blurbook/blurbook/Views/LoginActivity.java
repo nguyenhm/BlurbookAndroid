@@ -15,9 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.blurbook.blurbook.JSONParser;
+import com.blurbook.blurbook.Services.JSONParser;
 import com.blurbook.blurbook.R;
-import com.blurbook.blurbook.RestAPI;
+import com.blurbook.blurbook.Services.RestAPI;
 
 import org.json.JSONObject;
 
@@ -108,10 +108,10 @@ public class LoginActivity extends ActionBarActivity {
 
             //Check user validity
             if (result) {
-//                Intent i = new Intent(LoginActivity.this,
-//                        MainActivity.class);
-//                i.putExtra("email",email);
-//                startActivity(i);
+                Intent i = new Intent(LoginActivity.this,
+                        MainActivity.class);
+                i.putExtra("email",email);
+                startActivity(i);
 
                 Toast.makeText(context, "OK ", Toast.LENGTH_SHORT).show();
             }

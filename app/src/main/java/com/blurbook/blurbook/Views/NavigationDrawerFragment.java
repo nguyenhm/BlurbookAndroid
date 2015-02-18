@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.blurbook.blurbook.MyAdapter;
+import com.blurbook.blurbook.Services.MyAdapter;
 import com.blurbook.blurbook.R;
 
 

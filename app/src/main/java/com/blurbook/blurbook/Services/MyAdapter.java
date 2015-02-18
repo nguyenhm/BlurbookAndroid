@@ -1,4 +1,4 @@
-package com.blurbook.blurbook;
+package com.blurbook.blurbook.Services;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Collections;
-import java.util.List;
+import com.blurbook.blurbook.R;
 
 /**
  * Created by Hoang Nguyen on 2/3/2015.
@@ -22,7 +21,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 //    List<DrawerRowDetail> rows = Collections.emptyList();
 
     private String mNavTitles[]; // String Array to store the passed titles Value from MainActivity.java
-    private int mIcons[];       // Int Array to store the passed icons resource value from MainActivity.java
+    private int mIcons[];        // Int Array to store the passed icons resource value from MainActivity.java
 
 
 //    public MyAdapter(Context context, List<DrawerRowDetail> rows){

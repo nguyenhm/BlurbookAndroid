@@ -30,6 +30,19 @@ public class MainActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
 
         drawerFragment.setUp(R.id.fragment_navigation_drawer,(DrawerLayout)findViewById(R.id.drawer_layout), toolbar);
+
+//        RestAPI rest = new RestAPI();
+//        InputStream test = new InputStream() {
+//            @Override
+//            public int read() throws IOException {
+//                return 0;
+//            }
+//        };
+//        try {
+//            rest.convertStreamToUTF8String(test);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
 

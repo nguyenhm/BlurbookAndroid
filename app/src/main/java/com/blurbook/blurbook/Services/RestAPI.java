@@ -1,5 +1,5 @@
-/* JSON API for android application ........*/
-package com.blurbook.blurbook;
+/* JSON API for android appliation */
+package com.blurbook.blurbook.Services;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 public class RestAPI {
-    private final String urlString = "http://localhost/Handler1.ashx";
+    private final String urlString = "http://192.168.1.6/BlurbookAPI/Handler1.ashx";
 
     private static String convertStreamToUTF8String(InputStream stream) throws IOException {
 	    String result = "";
@@ -100,6 +100,48 @@ public class RestAPI {
 		return finalValue;
 	}
 
+    public JSONObject GetUsersAll() throws Exception {
+        JSONObject result = null;
+        JSONObject o = new JSONObject();
+        JSONObject p = new JSONObject();
+        o.put("interface","RestAPI");
+        o.put("method", "GetUsersAll");
+        o.put("parameters", p);
+        String s = o.toString();
+        String r = load(s);
+        result = new JSONObject(r);
+        return result;
+    }
+
+    public JSONObject GetUserByID(int userID) throws Exception {
+        JSONObject result = null;
+        JSONObject o = new JSONObject();
+        JSONObject p = new JSONObject();
+        o.put("interface","RestAPI");
+        o.put("method", "GetUserByID");
+        p.put("userID",mapObject(userID));
+        o.put("parameters", p);
+        String s = o.toString();
+        String r = load(s);
+        result = new JSONObject(r);
+        return result;
+    }
+
+    public JSONObject UserAuthentication(String email,String password) throws Exception {
+        JSONObject result = null;
+        JSONObject o = new JSONObject();
+        JSONObject p = new JSONObject();
+        o.put("interface","RestAPI");
+        o.put("method", "UserAuthentication");
+        p.put("email",mapObject(email));
+        p.put("password",mapObject(password));
+        o.put("parameters", p);
+        String s = o.toString();
+        String r = load(s);
+        result = new JSONObject(r);
+        return result;
+    }
+
     public JSONObject CreateNewAccount(String firstName,String lastName,String email,String password) throws Exception {
         JSONObject result = null;
         JSONObject o = new JSONObject();
@@ -110,48 +152,6 @@ public class RestAPI {
         p.put("lastName",mapObject(lastName));
         p.put("email",mapObject(email));
         p.put("password",mapObject(password));
-        o.put("parameters", p);
-        String s = o.toString();
-        String r = load(s);
-        result = new JSONObject(r);
-        return result;
-    }
-
-    public JSONObject GetUserDetails(String email) throws Exception {
-        JSONObject result = null;
-        JSONObject o = new JSONObject();
-        JSONObject p = new JSONObject();
-        o.put("interface","RestAPI");
-        o.put("method", "GetUserDetails");
-        p.put("email",mapObject(email));
-        o.put("parameters", p);
-        String s = o.toString();
-        String r = load(s);
-        result = new JSONObject(r);
-        return result;
-    }
-
-    public JSONObject UserAuthentication(String email,String passsword) throws Exception {
-        JSONObject result = null;
-        JSONObject o = new JSONObject();
-        JSONObject p = new JSONObject();
-        o.put("interface","RestAPI");
-        o.put("method", "UserAuthentication");
-        p.put("email",mapObject(email));
-        p.put("passsword",mapObject(passsword));
-        o.put("parameters", p);
-        String s = o.toString();
-        String r = load(s);
-        result = new JSONObject(r);
-        return result;
-    }
-
-    public JSONObject GetDepartmentDetails() throws Exception {
-        JSONObject result = null;
-        JSONObject o = new JSONObject();
-        JSONObject p = new JSONObject();
-        o.put("interface","RestAPI");
-        o.put("method", "GetDepartmentDetails");
         o.put("parameters", p);
         String s = o.toString();
         String r = load(s);
