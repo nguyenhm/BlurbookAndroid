@@ -142,6 +142,20 @@ public class RestAPI {
         return result;
     }
 
+    public JSONObject IsUserExisted(String email) throws Exception {
+        JSONObject result = null;
+        JSONObject o = new JSONObject();
+        JSONObject p = new JSONObject();
+        o.put("interface","RestAPI");
+        o.put("method", "IsUserExisted");
+        p.put("email",mapObject(email));
+        o.put("parameters", p);
+        String s = o.toString();
+        String r = load(s);
+        result = new JSONObject(r);
+        return result;
+    }
+
     public JSONObject CreateNewAccount(String firstName,String lastName,String email,String password) throws Exception {
         JSONObject result = null;
         JSONObject o = new JSONObject();

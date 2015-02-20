@@ -1,4 +1,4 @@
-package com.blurbook.blurbook.Views;
+package com.blurbook.blurbook.Controllers;
 
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;

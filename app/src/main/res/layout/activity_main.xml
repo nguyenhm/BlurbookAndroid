@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.blurbook.blurbook.Views.MainActivity">
+        tools:context="com.blurbook.blurbook.Controllers.MainActivity">
 
         <include
             android:id="@+id/app_bar"
@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:layout="@layout/fragment_navigation_drawer"
-        android:name="com.blurbook.blurbook.Views.NavigationDrawerFragment"
+        android:name="com.blurbook.blurbook.Controllers.NavigationDrawerFragment"
         tools:layout="@layout/fragment_navigation_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

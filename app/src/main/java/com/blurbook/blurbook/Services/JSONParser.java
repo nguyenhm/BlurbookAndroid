@@ -28,6 +28,19 @@ public class JSONParser {
         return userAtuh;
     }
 
+    public boolean parseUserExisted(JSONObject object){
+        boolean userExisted = false;
+        try{
+            userExisted = object.getBoolean("Value");
+        }catch (JSONException e){
+            Log.d("JSONParser => parseUserExisted", e.getMessage());
+        }
+
+        return userExisted;
+    }
+
+
+
     public User parseUserDetails(JSONObject object)
     {
         User newUser = new User();

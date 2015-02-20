@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.blurbook.blurbook.Views.LoginActivity"
+    tools:context="com.blurbook.blurbook.Controllers.LoginActivity"
     android:paddingTop="@dimen/app_bar_padding_top">
 
     <item

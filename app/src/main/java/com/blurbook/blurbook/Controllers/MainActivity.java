@@ -1,4 +1,4 @@
-package com.blurbook.blurbook.Views;
+package com.blurbook.blurbook.Controllers;
 
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
@@ -30,19 +30,6 @@ public class MainActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
 
         drawerFragment.setUp(R.id.fragment_navigation_drawer,(DrawerLayout)findViewById(R.id.drawer_layout), toolbar);
-
-//        RestAPI rest = new RestAPI();
-//        InputStream test = new InputStream() {
-//            @Override
-//            public int read() throws IOException {
-//                return 0;
-//            }
-//        };
-//        try {
-//            rest.convertStreamToUTF8String(test);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
 

@@ -1,4 +1,4 @@
-package com.blurbook.blurbook.Views;
+package com.blurbook.blurbook.Controllers;
 
 
 import android.content.Context;
@@ -78,21 +78,6 @@ public class NavigationDrawerFragment extends Fragment {
 
         return layout;
     }
-
-//    public static List<DrawerRowDetail> getRows(){
-//        List<DrawerRowDetail> rows = new ArrayList<>();
-//        int[] icons = {R.drawable.ic_mail, R.drawable.ic_person, R.drawable.ic_heart,R.drawable.ic_setting};
-//        String[] titles = {"Inbox", "Profile", "Wish List", "Setting"};
-//        for(int i = 0; i < titles.length && i < icons.length; i++)
-//        {
-//            DrawerRowDetail current = new DrawerRowDetail();
-//            current.title = titles[i];
-//            current.iconId=icons[i];
-//            rows.add(current);
-//        }
-//        return rows;
-//    }
-
 
     public void setUp(int fragementId, DrawerLayout drawerLayout, Toolbar toolbar)
     {
