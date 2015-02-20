@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.blurbook.blurbook.Services.MyAdapter;
 import com.blurbook.blurbook.R;
@@ -41,6 +42,9 @@ public class NavigationDrawerFragment extends Fragment {
 
     private View containerView;
 
+    TextView tvEmail, tvUserName;
+    public static final String DEFAULT = "N/A";
+
     public NavigationDrawerFragment() {
         // Required empty public constructor
     }
@@ -60,11 +64,29 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        tvEmail = (TextView) layout.findViewById(R.id.email);
+        tvUserName = (TextView) layout.findViewById((R.id.name));
         recyclerView= (RecyclerView) layout.findViewById(R.id.drawerList);
         recyclerView.setHasFixedSize(true);
         adapter=new MyAdapter(getActivity(), titles, icons);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", DEFAULT);
+        String firsName = sharedPreferences.getString("firstName", DEFAULT);
+        String lastName = sharedPreferences.getString("lastName", DEFAULT);
+
+        if(email.equals(DEFAULT) || firsName.equals(DEFAULT) || lastName.equals(DEFAULT))
+        {
+            tvEmail.setText("");
+            tvUserName.setText("");
+        }
+        else
+        {
+            tvEmail.setText(email);
+            tvUserName.setText(firsName + " " + lastName);
+        }
 
         Button loginSignUpButton = (Button) layout.findViewById(R.id.login_sign_up_button);
         loginSignUpButton.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +96,7 @@ public class NavigationDrawerFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
 
 
         return layout;

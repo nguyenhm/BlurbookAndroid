@@ -39,24 +39,25 @@ public class JSONParser {
         return userExisted;
     }
 
-
-
     public User parseUserDetails(JSONObject object)
     {
-        User newUser = new User();
+        User user=new User();
 
         try {
             JSONObject jsonObj=object.getJSONArray("Value").getJSONObject(0);
 
-            newUser.setFirstName(jsonObj.getString("firstName"));
-            newUser.setLastName(jsonObj.getString("lastName"));
+            user.setFirstName(jsonObj.getString("FName"));
+            user.setLastName(jsonObj.getString("LName"));
 
         } catch (JSONException e) {
+            // TODO Auto-generated catch block
             Log.d("JSONParser => parseUserDetails", e.getMessage());
         }
 
-        return newUser;
+        return user;
 
     }
+
+
 
 }

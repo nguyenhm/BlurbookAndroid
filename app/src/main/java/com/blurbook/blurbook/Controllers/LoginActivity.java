@@ -1,16 +1,16 @@
-
 //comment
 package com.blurbook.blurbook.Controllers;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
@@ -21,8 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.blurbook.blurbook.Services.JSONParser;
+import com.blurbook.blurbook.Models.User;
 import com.blurbook.blurbook.R;
+import com.blurbook.blurbook.Services.JSONParser;
 import com.blurbook.blurbook.Services.RestAPI;
 
 import org.json.JSONObject;
@@ -55,6 +56,7 @@ public class LoginActivity extends ActionBarActivity {
     String email, password, encryptedPassword;
 
     private static String cryptoPass = "Blurbook";
+    String firstName, lastName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class LoginActivity extends ActionBarActivity {
         });
 
         // Initialize  the layout components
-        context=this;
+        context = this;
         etEmail = (EditText) findViewById(R.id.et_email);
         etPassword = (EditText) findViewById(R.id.et_password);
         btnLogin = (Button) findViewById(R.id.btn_Login);
@@ -117,22 +119,13 @@ public class LoginActivity extends ActionBarActivity {
                     e.printStackTrace();
                 }
 
-                if(!email.equals("") && !password.equals(""))
-                {
+                if (!email.equals("") && !password.equals("")) {
                     // Execute the AsyncLogin class
                     NetAsync(v);
-                }
-                else if(email.equals(""))
-                {
-                    Toast.makeText(context,"Email field is empty", Toast.LENGTH_SHORT).show();
-                }
-                else if(password.equals(""))
-                {
-                    Toast.makeText(context,"Password field is empty", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(context,"Email and Password fields are empty", Toast.LENGTH_SHORT).show();
+                } else if (email.equals("")) {
+                    Toast.makeText(context, "Email field is empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Password field is empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -140,12 +133,12 @@ public class LoginActivity extends ActionBarActivity {
 
     /**
      * Async Task to check whether internet connection is working.
-     **/
-    private class NetCheck extends AsyncTask<String, Void, Boolean>
-    {
+     */
+    private class NetCheck extends AsyncTask<String, Void, Boolean> {
         private ProgressDialog nDialog;
+
         @Override
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             super.onPreExecute();
             nDialog = new ProgressDialog(LoginActivity.this);
             nDialog.setTitle("Checking Network");
@@ -178,35 +171,33 @@ public class LoginActivity extends ActionBarActivity {
             }
             return false;
         }
+
         @Override
-        protected void onPostExecute(Boolean th){
-            if(th == true){
+        protected void onPostExecute(Boolean th) {
+            if (th == true) {
                 nDialog.dismiss();
-                new AsyncLogin().execute(email,encryptedPassword);
-            }
-            else{
+                new AsyncLogin().execute(email, encryptedPassword);
+            } else {
                 nDialog.dismiss();
                 //loginErrorMsg.setText("Error in Network Connection");
-                Toast.makeText(context,"Error in Network Connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error in Network Connection", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    protected class AsyncLogin extends AsyncTask<String, JSONObject, Boolean>{
-                private ProgressDialog pDialog;
+    protected class AsyncLogin extends AsyncTask<String, JSONObject, Boolean> {
+        private ProgressDialog pDialog;
 
-                @Override
-                protected void onPreExecute() {
+        @Override
+        protected void onPreExecute() {
 
-                    super.onPreExecute();
-                    pDialog = new ProgressDialog(LoginActivity.this);
-                    pDialog.setTitle("Contacting Servers");
-                    pDialog.setMessage("Logging in ...");
-                    pDialog.setIndeterminate(false);
-                    pDialog.setCancelable(true);
-                    pDialog.show();
-
-            //Toast.makeText(context, "Please Wait...",Toast.LENGTH_SHORT).show();
+            super.onPreExecute();
+            pDialog = new ProgressDialog(LoginActivity.this);
+            pDialog.setTitle("Contacting Servers");
+            pDialog.setMessage("Logging in ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
         }
 
         @Override
@@ -221,7 +212,7 @@ public class LoginActivity extends ActionBarActivity {
                 //Parse the JSON Object to boolean
                 JSONParser parser = new JSONParser();
                 userAuth = parser.parseUserAuth(jsonObj);
-                email=params[0];
+                email = params[0];
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 Log.d("AsyncLogin", e.getMessage());
@@ -234,25 +225,67 @@ public class LoginActivity extends ActionBarActivity {
             // TODO Auto-generated method stub
             //Check user validity
             if (result) {
-                Intent i = new Intent(LoginActivity.this,
-                        MainActivity.class);
-                i.putExtra("email",email);
-                startActivity(i);
-
-                Toast.makeText(context, "OK ", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
+                new AsyncUserDetails().execute(email);
+            } else {
                 Toast.makeText(context, "Not valid email/password " + email + "   " + password, Toast.LENGTH_SHORT).show();
                 pDialog.dismiss();
             }
         }
     }
 
-    public void NetAsync(View v){
-        new NetCheck().execute();
+    protected class AsyncUserDetails extends AsyncTask<String, Void, User> {
+        private ProgressDialog uDialog;
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+            uDialog = new ProgressDialog(LoginActivity.this);
+            uDialog.setTitle("Contacting Servers");
+            uDialog.setMessage("Updating data...");
+            uDialog.setIndeterminate(false);
+            uDialog.setCancelable(true);
+            uDialog.show();
+        }
+        @Override
+        protected User doInBackground(String... params) {
+            // TODO Auto-generated method stub
+            User user = null;
+            RestAPI api = new RestAPI();
+            try {
+                JSONObject jsonObj = api.GetUserByEmail(params[0]);
+                JSONParser parser = new JSONParser();
+                user = parser.parseUserDetails(jsonObj);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                Log.d("AsyncUserDetails", e.getMessage());
+            }
+            return user;
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            // TODO Auto-generated method stub
+            SharedPreferences sharedPreferences = getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("email", etEmail.getText().toString());
+            editor.putString("firstName", user.getFirstName());
+            editor.putString("lastName", user.getLastName());
+            editor.commit();
+
+            Intent i = new Intent(LoginActivity.this,
+                    MainActivity.class);
+            //i.putExtra("email",email);
+            startActivity(i);
+
+            Toast.makeText(context, "Welcome " + user.getFirstName() + " " + user.getLastName(), Toast.LENGTH_SHORT).show();
+
+        }
     }
 
+    public void NetAsync(View v) {
+        new NetCheck().execute();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -271,9 +304,7 @@ public class LoginActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }
-        else if(id==android.R.id.home)
-        {
+        } else if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
         }
 
