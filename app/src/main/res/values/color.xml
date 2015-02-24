@@ -4,4 +4,5 @@
     <color name="primaryColorDark">#1976D2</color>
     <color name="accentColor">#FFEBEE</color>
     <color name="custom_theme_color">#BBDEFB</color>
+    <color name="colorHighlight">#B6B6B6</color>
 </resources>

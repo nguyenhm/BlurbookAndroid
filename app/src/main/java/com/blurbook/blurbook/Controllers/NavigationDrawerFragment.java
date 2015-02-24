@@ -28,8 +28,8 @@ public class NavigationDrawerFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private MyAdapter adapter;
-    int[] icons = {R.drawable.ic_mail, R.drawable.ic_person, R.drawable.ic_heart,R.drawable.ic_setting};
-    String[] titles = {"Inbox", "Profile", "Wish List", "Setting"};
+    int[] icons = {R.drawable.ic_home, R.drawable.ic_mail, R.drawable.ic_person, R.drawable.ic_heart,R.drawable.ic_setting};
+    String[] titles = {"Home", "Inbox", "Profile", "Wish List", "Setting"};
 
     public static final String PREF_FILE_NAME="testpref";
     public static final String KEY_USER_LEARNED_DRAWER="user_learned_drawer";
