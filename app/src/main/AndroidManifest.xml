@@ -43,6 +43,30 @@
         <activity
             android:name=".Controllers.ProfileActivity"
             android:label="@string/title_activity_profile" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controllers.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Controllers.InboxActivity"
+            android:label="@string/title_activity_inbox" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controllers.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Controllers.WishListActivity"
+            android:label="@string/title_activity_wish_list" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controllers.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Controllers.SettingActivity"
+            android:label="@string/title_activity_setting" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controllers.MainActivity" />
         </activity>
     </application>
 

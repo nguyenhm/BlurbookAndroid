@@ -25,5 +25,8 @@
     <string name="first_name">First Name</string>
     <string name="create_user_account">Create Account</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_inbox">InboxActivity</string>
+    <string name="title_activity_wish_list">WishListActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
 
 </resources>
