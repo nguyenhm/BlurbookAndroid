@@ -4,8 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.blurbook.blurbook.Controllers.BlurbTab;
-import com.blurbook.blurbook.Controllers.CategoryTab;
+import com.blurbook.blurbook.Tabs.BlurbTab;
+import com.blurbook.blurbook.Tabs.CategoryTab;
+import com.blurbook.blurbook.Tabs.SellTab;
+import com.blurbook.blurbook.Tabs.ShopTab;
 
 /**
  * Created by Hoang on 2/26/2015.
@@ -29,11 +31,23 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             CategoryTab categoryTab = new CategoryTab();
             return categoryTab;
         }
-        else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
+        else if(position == 1)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
             BlurbTab blurbTab = new BlurbTab();
             return blurbTab;
         }
+        else if(position == 2)
+        {
+            SellTab sellTab = new SellTab();
+            return sellTab;
+        }
+        else
+        {
+            ShopTab shopTab = new ShopTab();
+            return shopTab;
+        }
+
+
     }
 
     @Override

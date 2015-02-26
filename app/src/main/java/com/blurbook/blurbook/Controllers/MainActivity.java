@@ -8,9 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blurbook.blurbook.Fragments.NavigationDrawerFragment;
@@ -26,8 +23,8 @@ public class MainActivity extends ActionBarActivity {
     ViewPager pager;
     ViewPagerAdapter pagerAdapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[] = {"Category", "Blurb"};
-    int Numboftabs = 2;
+    CharSequence Titles[] = {"Cate", "Blurb", "Sell", "Shop"};
+    int Numboftabs = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

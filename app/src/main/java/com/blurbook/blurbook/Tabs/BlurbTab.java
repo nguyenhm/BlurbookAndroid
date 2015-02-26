@@ -1,4 +1,4 @@
-package com.blurbook.blurbook.Controllers;
+package com.blurbook.blurbook.Tabs;
 
 
 import android.os.Bundle;

@@ -2,6 +2,7 @@
 <resources>
     <color name="primaryColor">#2196F3</color>
     <color name="primaryColorDark">#1976D2</color>
+    <color name="tabsColor">#64B5F6</color>
     <color name="tabsScrollColor">#8a140e</color>
     <color name="accentColor">#FFEBEE</color>
     <color name="custom_theme_color">#BBDEFB</color>

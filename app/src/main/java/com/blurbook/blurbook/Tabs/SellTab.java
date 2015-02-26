@@ -1,4 +1,4 @@
-package com.blurbook.blurbook.Controllers;
+package com.blurbook.blurbook.Tabs;
 
 
 import android.os.Bundle;
@@ -13,12 +13,12 @@ import com.blurbook.blurbook.R;
 /**
  * Created by Hoang on 2/26/2015.
  */
-public class CategoryTab extends Fragment
+public class SellTab extends Fragment
 {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.tab_category, container, false);
+        View v = inflater.inflate(R.layout.tab_sell, container, false);
         return v;
     }
 }
