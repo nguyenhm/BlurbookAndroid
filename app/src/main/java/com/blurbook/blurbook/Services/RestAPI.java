@@ -8,7 +8,6 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -21,7 +20,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 public class RestAPI {
-    private final String urlString = "http://192.168.1.6/BlurbookAPI/Handler1.ashx";
+    private final String urlString = "http://192.168.1.4/BlurbookAPI/Handler1.ashx";
 
     private static String convertStreamToUTF8String(InputStream stream) throws IOException {
 	    String result = "";
@@ -186,6 +185,22 @@ public class RestAPI {
         result = new JSONObject(r);
         return result;
     }
+
+    public JSONObject UpdateAvatarByEmail(String email,String avatarLink) throws Exception {
+        JSONObject result = null;
+        JSONObject o = new JSONObject();
+        JSONObject p = new JSONObject();
+        o.put("interface","RestAPI");
+        o.put("method", "UpdateAvatarByEmail");
+        p.put("email",mapObject(email));
+        p.put("avatarLink",mapObject(avatarLink));
+        o.put("parameters", p);
+        String s = o.toString();
+        String r = load(s);
+        result = new JSONObject(r);
+        return result;
+    }
+
 
 }
 

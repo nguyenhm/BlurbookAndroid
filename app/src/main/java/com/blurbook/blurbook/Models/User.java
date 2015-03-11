@@ -1,13 +1,11 @@
 package com.blurbook.blurbook.Models;
 
-import java.sql.Date;
-
 /**
  * Created by Hoang on 2/17/2015.
  */
 public class User
 {
-    String firstName, lastName, email, password;
+    String firstName, lastName, avatarLink, email, password;
 
     public User(String firstName, String lastName, String email,
                             String password) {
@@ -22,6 +20,7 @@ public class User
         super();
         this.firstName = null;
         this.lastName = null;
+        this.avatarLink = null;
         this.email = null;
         this.password = null;
     }
@@ -41,6 +40,10 @@ public class User
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public String getAvatarLink() {return avatarLink;}
+
+    public void setAvatarLink(String avatarLink) {this.avatarLink = avatarLink;}
 
     public String getEmail() {
         return email;

@@ -48,6 +48,7 @@ public class JSONParser {
 
             user.setFirstName(jsonObj.getString("FName"));
             user.setLastName(jsonObj.getString("LName"));
+            user.setAvatarLink(jsonObj.getString("AvatarLink"));
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block

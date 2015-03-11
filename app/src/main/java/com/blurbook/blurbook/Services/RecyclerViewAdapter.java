@@ -13,7 +13,7 @@ import com.blurbook.blurbook.R;
 /**
  * Created by Hoang Nguyen on 2/3/2015.
  */
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
     private Context context;
@@ -21,7 +21,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private String mNavTitles[]; // String Array to store the passed titles Value from MainActivity.java
     private int mIcons[];        // Int Array to store the passed icons resource value from MainActivity.java
 
-    public MyAdapter(Context context, String Titles[], int Icons[]){
+    public RecyclerViewAdapter(Context context, String Titles[], int Icons[]){
         this.context = context;
         inflater=LayoutInflater.from(context);
         this.mNavTitles = Titles;
@@ -36,7 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(MyAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.textView.setText(mNavTitles[position]);
         holder.imageView.setImageResource(mIcons[position]);
     }

@@ -3,9 +3,9 @@ package com.blurbook.blurbook.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,10 +24,11 @@ import com.blurbook.blurbook.Controllers.InboxActivity;
 import com.blurbook.blurbook.Controllers.LoginActivity;
 import com.blurbook.blurbook.Controllers.ProfileActivity;
 import com.blurbook.blurbook.Controllers.SettingActivity;
-import com.blurbook.blurbook.Controllers.SignUpActivity;
 import com.blurbook.blurbook.Controllers.WishListActivity;
-import com.blurbook.blurbook.Services.MyAdapter;
+import com.blurbook.blurbook.Services.RecyclerViewAdapter;
 import com.blurbook.blurbook.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -36,13 +37,12 @@ import com.blurbook.blurbook.R;
 public class NavigationDrawerFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private MyAdapter adapter;
+    private RecyclerViewAdapter adapter;
     int[] icons = {R.drawable.ic_mail, R.drawable.ic_person, R.drawable.ic_heart,R.drawable.ic_setting};
     String[] titles = {"Inbox", "Profile", "Wish List", "Setting"};
 
     public static final String PREF_FILE_NAME="testpref";
     public static final String KEY_USER_LEARNED_DRAWER="user_learned_drawer";
-    private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -53,9 +53,8 @@ public class NavigationDrawerFragment extends Fragment {
     private View containerView;
 
     TextView tvEmail, tvUserName;
+    CircleImageView circleProfileImageView;
     public static final String DEFAULT = "N/A";
-
-    private int mCurrentSelectedPosition = 0;
 
     public NavigationDrawerFragment() {
         // Required empty public constructor
@@ -79,7 +78,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
         recyclerView.setHasFixedSize(true);
-        adapter = new MyAdapter(getActivity(), titles, icons);
+        adapter = new RecyclerViewAdapter(getActivity(), titles, icons);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -109,8 +108,7 @@ public class NavigationDrawerFragment extends Fragment {
                         break;
                 }
 
-                Toast.makeText(getActivity(), "You hit item " + position, Toast.LENGTH_SHORT).show();
-                mDrawerLayout.closeDrawers();
+                Toast.makeText(getActivity(), titles[position], Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -121,21 +119,32 @@ public class NavigationDrawerFragment extends Fragment {
 
         tvEmail = (TextView) layout.findViewById(R.id.email);
         tvUserName = (TextView) layout.findViewById((R.id.name));
+        circleProfileImageView = (CircleImageView) layout.findViewById(R.id.circleProfilePicView);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
         String email = sharedPreferences.getString("email", DEFAULT);
         String firsName = sharedPreferences.getString("firstName", DEFAULT);
         String lastName = sharedPreferences.getString("lastName", DEFAULT);
+        String avatarLink = sharedPreferences.getString("avatarLink", DEFAULT);
 
         if(email.equals(DEFAULT) || firsName.equals(DEFAULT) || lastName.equals(DEFAULT))
         {
             tvEmail.setText("");
             tvUserName.setText("");
+            circleProfileImageView.setImageResource(R.drawable.pic_profile);
         }
         else
         {
             tvEmail.setText(email);
             tvUserName.setText(firsName + " " + lastName);
+            if(avatarLink.equals(DEFAULT))
+            {
+                circleProfileImageView.setImageResource(R.drawable.pic_profile);
+            }
+            else
+            {
+                circleProfileImageView.setImageBitmap(BitmapFactory.decodeFile(avatarLink));
+            }
         }
 
         Button loginSignUpButton = (Button) layout.findViewById(R.id.login_sign_up_button);

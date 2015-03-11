@@ -181,19 +181,31 @@ public class SignUpActivity extends ActionBarActivity {
         }
         @Override
         protected void onPostExecute(Boolean th){
-            if(th == true){
-                nDialog.dismiss();
+            if(th){
                 new AsyncIsUserExisted().execute(email);
+                nDialog.dismiss();
             }
             else{
-                nDialog.dismiss();
                 //loginErrorMsg.setText("Error in Network Connection");
                 Toast.makeText(context,"Error in Network Connection", Toast.LENGTH_SHORT).show();
+                nDialog.dismiss();
             }
         }
     }
 
     private class AsyncIsUserExisted extends AsyncTask<String, JSONObject, Boolean>{
+
+        private ProgressDialog nDialog;
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            nDialog = new ProgressDialog(SignUpActivity.this);
+            nDialog.setTitle("Checking User");
+            nDialog.setMessage("Loading..");
+            nDialog.setIndeterminate(false);
+            nDialog.setCancelable(true);
+            nDialog.show();
+        }
 
         @Override
         protected Boolean doInBackground(String... params) {
@@ -220,10 +232,12 @@ public class SignUpActivity extends ActionBarActivity {
             //Check user validity
             if (result) {
                 Toast.makeText(context, "Email is already used! ", Toast.LENGTH_SHORT).show();
+                nDialog.dismiss();
             }
             else
             {
                 new AsyncCreateUser().execute(newUser);
+                nDialog.dismiss();
             }
         }
     }
@@ -260,10 +274,61 @@ public class SignUpActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
-            startActivity(i);
+            new AsyncCheckRegistration().execute(email, encryptedPassword);
+            pDialog.dismiss();
+        }
+    }
+
+    protected class AsyncCheckRegistration extends AsyncTask<String, JSONObject, Boolean> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+            pDialog = new ProgressDialog(SignUpActivity.this);
+            pDialog.setTitle("Contacting Servers");
+            pDialog.setMessage("Checking Servers ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
         }
 
+        @Override
+        protected Boolean doInBackground(String... params) {
+            RestAPI api = new RestAPI();
+            boolean userAuth = false;
+            try {
+                // Call the User Authentication Method in API
+                JSONObject jsonObj = api.UserAuthentication(params[0],
+                        params[1]);
+
+                //Parse the JSON Object to boolean
+                JSONParser parser = new JSONParser();
+                userAuth = parser.parseUserAuth(jsonObj);
+                email = params[0];
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                Log.d("AsyncLogin", e.getMessage());
+            }
+            return userAuth;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            // TODO Auto-generated method stub
+            //Check user validity
+            if (result) {
+                Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+            else
+            {
+                pDialog.dismiss();
+                Toast.makeText(context, "Server error, please try again later! ", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void NetAsync(View v){

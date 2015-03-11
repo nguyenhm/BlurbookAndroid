@@ -50,7 +50,7 @@
             android:src="@drawable/pic_profile"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="38dp"
-            android:id="@+id/circleView"
+            android:id="@+id/circleProfilePicView"
             />
     </RelativeLayout>
 

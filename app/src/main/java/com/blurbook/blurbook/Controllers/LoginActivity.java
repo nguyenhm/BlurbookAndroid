@@ -56,7 +56,6 @@ public class LoginActivity extends ActionBarActivity {
     String email, password, encryptedPassword;
 
     private static String cryptoPass = "Blurbook";
-    String firstName, lastName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +173,7 @@ public class LoginActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Boolean th) {
-            if (th == true) {
+            if (th) {
                 nDialog.dismiss();
                 new AsyncLogin().execute(email, encryptedPassword);
             } else {
@@ -271,11 +270,12 @@ public class LoginActivity extends ActionBarActivity {
             editor.putString("email", etEmail.getText().toString());
             editor.putString("firstName", user.getFirstName());
             editor.putString("lastName", user.getLastName());
+            editor.putString("avatarLink", user.getAvatarLink());
             editor.commit();
 
             Intent i = new Intent(LoginActivity.this,
                     MainActivity.class);
-            //i.putExtra("email",email);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
 
             Toast.makeText(context, "Welcome " + user.getFirstName() + " " + user.getLastName(), Toast.LENGTH_SHORT).show();
